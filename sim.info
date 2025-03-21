@@ -1,0 +1,72 @@
+{'benchmarks_revision': ('ba6004fd2b251be0ee5fc9e5d77374f1d4c80317',),
+ 'benchmarks_root': ('/home/gina/Desktop/benchmarks',),
+ 'cmdline': ['/home/gina/Desktop/benchmarks/tools/docker/src/sniper/run-sniper',
+             '-n',
+             '4',
+             '-m',
+             'localhost',
+             '-d',
+             '/home/gina/Desktop/benchmarks',
+             '-c',
+             'gainestown',
+             '--roi',
+             '--curdir=/home/gina/Desktop/benchmarks',
+             '--',
+             '/home/gina/Desktop/benchmarks/splash2/splash2/codes/kernels/fft/FFT',
+             '-m10',
+             '-p4'],
+ 'git_revision': '900a80c4669179ccea2ccd798b954c32627c093c',
+ 'host': 'vse-p07-2172-gina-Alienware-Aurora-R12',
+ 'pin_version': 'unknown',
+ 'rusage': (0.225271,
+            0.023922,
+            128120,
+            0,
+            0,
+            0,
+            19043,
+            0,
+            0,
+            0,
+            96,
+            0,
+            0,
+            0,
+            2,
+            8),
+ 'snipercmd': ['bash',
+               '-c',
+               '/home/gina/Desktop/benchmarks/tools/docker/src/sniper/lib/sniper '
+               '-c '
+               '/home/gina/Desktop/benchmarks/tools/docker/src/sniper/config/base.cfg '
+               '--general/total_cores=4 '
+               '--general/output_dir=/home/gina/Desktop/benchmarks '
+               '--config=/home/gina/Desktop/benchmarks/tools/docker/src/sniper/config/nehalem.cfg '
+               '--config=/home/gina/Desktop/benchmarks/tools/docker/src/sniper/config/gainestown.cfg '
+               '-g --general/magic=true -g '
+               '--traceinput/stop_with_first_app=true -g '
+               '--traceinput/restart_apps=false -g '
+               '--traceinput/stop_with_first_app=false -g '
+               '--traceinput/enabled=true -g '
+               '--traceinput/emulate_syscalls=true -g --traceinput/num_apps=1 '
+               '-g --traceinput/trace_prefix=/tmp/tmpsvbhpd2m/run_benchmarks'],
+ 't_elapsed': 0.3499457836151123,
+ 't_start': 1742589259.181222,
+ 'tracecmds': [['/home/gina/Desktop/benchmarks/tools/docker/src/sniper/record-trace',
+                '-o',
+                '/tmp/tmpsvbhpd2m/run_benchmarks',
+                '--roi',
+                '-e',
+                '1',
+                '-s',
+                '0',
+                '-r',
+                '1',
+                '--follow',
+                '--routine-tracing',
+                '--',
+                '/home/gina/Desktop/benchmarks/splash2/splash2/codes/kernels/fft/FFT',
+                '-m10',
+                '-p4']],
+ 'user': 'gina',
+ 'vmem': 378044416}

@@ -6,11 +6,12 @@ abspath = lambda d: os.path.abspath(os.path.join(d))
 HOME = abspath(os.path.dirname(__file__))
 
 splashrun = {}
-execfile(os.path.join(HOME, 'splash2', 'splashrun'), splashrun)
+exec(compile(open(os.path.join(HOME, 'splash2', 'splashrun'), "rb").read(), os.path.join(HOME, 'splash2', 'splashrun'), 'exec'), splashrun)
 
 
 def allbenchmarks():
-  benchmarks = subprocess.Popen([ '%(HOME)s/splash2/splashrun' % globals(), '-l' ], stdout = subprocess.PIPE).communicate()[0]
+  benchmarks = subprocess.Popen([ '%(HOME)s/splash2/splashrun' % globals(), '-l' ], stdout = subprocess.PIPE).communicate()[0].decode('utf-8')
+  print(benchmarks.split())
   return benchmarks.split()
 
 
@@ -46,3 +47,4 @@ class Program:
 
   def rungraphiteoptions(self):
     return ''
+

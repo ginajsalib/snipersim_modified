@@ -61,7 +61,7 @@ class BenchmarkFile(BenchmarkPlain):
   def prepare(self, inputsize, nthreads, rundir):
     args = Benchmark.prepare(self, inputsize, nthreads, rundir)
     cmd = self.unzip % { 'dir_': self.dir_, 'rundir': rundir, 'file': type(args['input']) is tuple and args['input'][0] or args['input'] }
-    print '[SPLASH]', 'Extracting output:', cmd
+    print('[SPLASH]', 'Extracting output:', cmd)
     run(cmd)
     return args
   def cmdline(self, args):
@@ -130,17 +130,17 @@ benchmarks = {
 
 
 def allbenchmarks():
-  return sorted(filter(lambda x: not x.endswith('-scale'), benchmarks.keys())) \
-       + sorted(filter(lambda x:     x.endswith('-scale'), benchmarks.keys()))
+  return sorted([x for x in list(benchmarks.keys()) if not x.endswith('-scale')]) \
+       + sorted([x for x in list(benchmarks.keys()) if x.endswith('-scale')])
 
 
 if __name__ == '__main__':
   def usage():
-    print 'SPLASH-2 run program, similar to PARSEC `parsecmgmt -a run`'
-    print 'Usage:'
-    print '  %s  -p <program (all)>  -i <inputsize (test)>  -n <nthreads (1)>  -s <submit-program (time)>  -d <rundir (temp)>' % sys.argv[0]
-    print 'Benchmarks:'
-    print ' ', ' '.join(allbenchmarks())
+    print('SPLASH-2 run program, similar to PARSEC `parsecmgmt -a run`')
+    print('Usage:')
+    print('  %s  -p <program (all)>  -i <inputsize (test)>  -n <nthreads (1)>  -s <submit-program (time)>  -d <rundir (temp)>' % sys.argv[0])
+    print('Benchmarks:')
+    print(' ', ' '.join(allbenchmarks()))
 
   program = 'all'; inputsize = 'test'; nthreads = 1; submit = 'time'; rundir = None
 
@@ -150,9 +150,9 @@ if __name__ == '__main__':
 
   try:
     opts, args = getopt.getopt(sys.argv[1:], "hlp:i:n:s:d:")
-  except getopt.GetoptError, e:
+  except getopt.GetoptError as e:
     # print help information and exit:
-    print e
+    print(e)
     usage()
     sys.exit(2)
   for o, a in opts:
@@ -160,7 +160,7 @@ if __name__ == '__main__':
       usage()
       sys.exit()
     if o == '-l':
-      print ' '.join(allbenchmarks())
+      print(' '.join(allbenchmarks()))
       sys.exit()
     if o == '-p':
       program = a
@@ -174,44 +174,45 @@ if __name__ == '__main__':
       rundir = a
 
   if program == 'all':
-    programs = benchmarks.keys()
+    programs = list(benchmarks.keys())
   else:
     programs = program.split()
 
 
-  print '[SPLASH] Benchmarks to run:', ' '.join(programs)
-  print
+  print('[SPLASH] Benchmarks to run:', ' '.join(programs))
+  print()
 
   ret_codes = []
   failed_run = False
   for bm in programs:
     bm = benchmarks[bm]
-    print '[SPLASH]', '[========== Running benchmark', bm.name, '==========]'
+    print('[SPLASH]', '[========== Running benchmark', bm.name, '==========]')
     if rundir:
       rundir_ = rundir
     else:
       rundir_ = tempfile.mkdtemp()
-    print '[SPLASH] Setting up run directory:', rundir_
+    print('[SPLASH] Setting up run directory:', rundir_)
     mkNewDir(rundir_)
     os.chdir(rundir_)
     try:
       args = bm.prepare(inputsize, nthreads, rundir_)
-    except UnsupportedParameter, e:
+    except UnsupportedParameter as e:
       if program == 'all':
-        print e
+        print(e)
         continue
       else:
         raise
     cmd = submit + ' ' + bm.run(args)
-    print '[SPLASH]', 'Running \'' + cmd + '\':'
-    print '[SPLASH]', '[---------- Beginning of output ----------]'
+    print('[SPLASH]', 'Running \'' + cmd + '\':')
+    print('[SPLASH]', '[---------- Beginning of output ----------]')
     retcode = run(cmd)
     if retcode != 0:
       ret_codes.append(retcode)
       failed_run = True
-    print '[SPLASH]', '[----------    End of output    ----------]'
+    print('[SPLASH]', '[----------    End of output    ----------]')
     if not rundir:
       os.system('rm -rf ' + rundir_)
-    print '[SPLASH]', 'Done.'
+    print('[SPLASH]', 'Done.')
     if failed_run:
       sys.exit(ret_codes[0])
+
